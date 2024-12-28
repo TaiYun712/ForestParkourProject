@@ -19,6 +19,8 @@ public class UIController : MonoBehaviour
     public TMP_Text coinText,crystalText;
 
     public TMP_Text lifeText; //生命數
+    public Image currentLifeImage; //目前玩家
+    public Sprite[] lifeImage; //小矮人圖片
 
     private void Awake()
     {
