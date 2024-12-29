@@ -8,10 +8,12 @@ public class KillPlayer : MonoBehaviour
 {
   private void OnTriggerEnter(Collider other)
   {
-    if (other.CompareTag("Player"))
+    if (other.CompareTag("Player") && LevelManager.instance.currentLife > 1)
     {
-     // other.gameObject.GetComponent<CharacterController>().Move(Vector3.up - other.transform.position);
      LevelManager.instance.ReSpawn();
+    }else 
+    {
+     LevelManager.instance.NoMoreLife();
     }
   }
 }

@@ -97,6 +97,13 @@ public class LevelManager : MonoBehaviour
         HatColors(currentLife);
     }
 
+    public void NoMoreLife()
+    {
+        player.gameObject.SetActive(false);
+        currentLife--;
+        UIController.instance.UpdateLifeDisplay(currentLife);
+    }
+
     public void GameOver()
     {
         if(currentLife <= 0)
