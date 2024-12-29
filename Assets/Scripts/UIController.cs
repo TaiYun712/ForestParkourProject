@@ -22,6 +22,10 @@ public class UIController : MonoBehaviour
     public Image currentLifeImage; //目前玩家
     public Sprite[] lifeImage; //小矮人圖片
 
+    public GameObject titleScreen,gamePlayScreen;
+    public Button startBt, quitBt;
+    public GameObject titleCam;
+
     private void Awake()
     {
         if (instance == null)
@@ -30,7 +34,33 @@ public class UIController : MonoBehaviour
         }
     }
 
-    
+    private void Start()
+    {
+        titleScreen.SetActive(true);
+        gamePlayScreen.SetActive(false);
+
+        if (titleScreen.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            LevelManager.instance.isPlaying =false;
+        }
+       
+        
+    }
+
+    public void StartGame()
+    {
+       
+        LevelManager.instance.isPlaying = true;
+        titleCam.SetActive(false);
+
+        titleScreen.SetActive(false);
+        gamePlayScreen.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.Locked;
+
+    }
+
     void Update()
     {
         if (fadeOut)

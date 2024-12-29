@@ -24,7 +24,6 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         FillHealth();
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

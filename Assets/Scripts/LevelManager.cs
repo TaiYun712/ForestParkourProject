@@ -19,8 +19,9 @@ public class LevelManager : MonoBehaviour
 
     public Material hat;
 
-    [HideInInspector]
+    
     public float levelTimer;
+    public bool isPlaying; //遊戲是否正在進行，在暫停或封面
 
     public int currentCoins;// coinThreshold,currentCrystal;
     
@@ -38,23 +39,27 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<Dwarf_Ctrl>();
-        respawnPoint = player.transform.position;
+       player = FindObjectOfType<Dwarf_Ctrl>();
+       respawnPoint = player.transform.position;
 
-        currentLife = maxLife;//開局滿命
+       currentLife = maxLife;//開局滿命
 
        UIController.instance.coinText.text = currentCoins.ToString();
-       //  UIController.instance.crystalText.text = currentCrystal.ToString();
        UIController.instance.UpdateLifeDisplay(currentLife); //目前命數
        HatColors(currentLife);
 
+        isPlaying = false;
     }
 
     private void Update()
     {
-        levelTimer += Time.deltaTime;
-        UIController.instance.timeText.text = levelTimer.ToString("0");
-        FillLife();
+        if (isPlaying)
+        {
+            levelTimer += Time.deltaTime;
+            UIController.instance.timeText.text = levelTimer.ToString("0");
+            FillLife();
+        }
+        
 
 
 #if UNITY_EDITOR
