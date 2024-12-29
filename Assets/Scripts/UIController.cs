@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class UIController : MonoBehaviour
 {
@@ -22,8 +24,8 @@ public class UIController : MonoBehaviour
     public Image currentLifeImage; //目前玩家
     public Sprite[] lifeImage; //小矮人圖片
 
-    public GameObject titleScreen,gamePlayScreen;
-    public Button startBt, quitBt;
+    public GameObject titleScreen,gamePlayScreen,failScreen;
+    public Button startBt, quitBt,backBt;
     public GameObject titleCam;
 
     private void Awake()
@@ -38,14 +40,14 @@ public class UIController : MonoBehaviour
     {
         titleScreen.SetActive(true);
         gamePlayScreen.SetActive(false);
+        failScreen.SetActive(false);
 
         if (titleScreen.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;
             LevelManager.instance.isPlaying =false;
         }
-       
-        
+           
     }
 
     public void StartGame()
@@ -59,6 +61,17 @@ public class UIController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
+    }
+
+    public void CloseGame()
+    {
+        Debug.Log("關閉遊戲");
+        Application.Quit();
+    }
+
+    public void BackToTitle()
+    {
+        SceneManager.LoadScene("GamePlay");
     }
 
     void Update()

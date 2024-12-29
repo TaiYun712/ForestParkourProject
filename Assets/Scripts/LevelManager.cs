@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
         {
             levelTimer += Time.deltaTime;
             UIController.instance.timeText.text = levelTimer.ToString("0");
-            FillLife();
+            GameOver();
         }
         
 
@@ -97,14 +97,15 @@ public class LevelManager : MonoBehaviour
         HatColors(currentLife);
     }
 
-    public void FillLife()
+    public void GameOver()
     {
         if(currentLife <= 0)
         {
             Debug.Log("GameOver!");
-            currentLife = maxLife;
-            UIController.instance.UpdateLifeDisplay(currentLife);
-            HatColors(currentLife);
+            UIController.instance.failScreen.SetActive(true);
+            isPlaying = false;
+            Cursor.lockState = CursorLockMode.None;
+
         }
     }
 

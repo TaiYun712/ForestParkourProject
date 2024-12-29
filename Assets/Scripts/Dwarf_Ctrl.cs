@@ -29,51 +29,56 @@ public class Dwarf_Ctrl : MonoBehaviour
    
     void Update()
     {
-        yStore = moveAmount.y;
-
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        moveAmount = cam.transform.forward * moveZ + cam.transform.right * moveX;
-        moveAmount.y = 0;
-        moveAmount = moveAmount.normalized;
-
-        if (moveAmount.magnitude > 0.1f)
+        if (LevelManager.instance.isPlaying)
         {
-            if (moveAmount != Vector3.zero)
+            yStore = moveAmount.y;
+
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveZ = Input.GetAxisRaw("Vertical");
+
+            moveAmount = cam.transform.forward * moveZ + cam.transform.right * moveX;
+            moveAmount.y = 0;
+            moveAmount = moveAmount.normalized;
+
+            if (moveAmount.magnitude > 0.1f)
             {
-                Quaternion newRot = Quaternion.LookRotation(moveAmount);
-                transform.rotation = Quaternion.Slerp(transform.rotation, newRot, rotateSpeed * Time.deltaTime);
+                if (moveAmount != Vector3.zero)
+                {
+                    Quaternion newRot = Quaternion.LookRotation(moveAmount);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, newRot, rotateSpeed * Time.deltaTime);
+                }
             }
+
+            moveAmount.y = yStore;
+
+            charCon.Move(new Vector3(moveAmount.x * moveSpeed, moveAmount.y, moveAmount.z * moveSpeed) * Time.deltaTime);
+
+            float moveVel = new Vector3(moveAmount.x, 0f, moveAmount.z).magnitude * moveSpeed;
+            anim.SetFloat("speed", moveVel);
+            anim.SetBool("isGrounded", charCon.isGrounded);
+            anim.SetFloat("yVel", moveAmount.y);
+
+            if (charCon.isGrounded)
+            {
+                jumpEffect.SetActive(false);
+
+                if (!lastGrounded)
+                {
+                    landEffect.SetActive(true);
+                }
+
+                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return))
+                {
+                    moveAmount.y = jumpForce;
+                    jumpEffect.SetActive(true);
+
+                }
+            }
+
+            lastGrounded = charCon.isGrounded;
         }
 
-        moveAmount.y = yStore;
-
-        charCon.Move(new Vector3(moveAmount.x * moveSpeed, moveAmount.y, moveAmount.z * moveSpeed) * Time.deltaTime);
-
-        float moveVel = new Vector3(moveAmount.x, 0f, moveAmount.z).magnitude * moveSpeed;
-        anim.SetFloat("speed", moveVel);
-        anim.SetBool("isGrounded", charCon.isGrounded);
-        anim.SetFloat("yVel", moveAmount.y);
-
-        if (charCon.isGrounded)
-        {
-            jumpEffect.SetActive(false);
-
-            if (!lastGrounded)
-            {
-                landEffect.SetActive(true);
-            }
-
-            if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return))
-            {
-                moveAmount.y = jumpForce;
-                jumpEffect.SetActive(true);
-
-            }
-        }
-
-        lastGrounded = charCon.isGrounded;
+       
     }
 
     private void FixedUpdate()
