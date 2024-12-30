@@ -67,7 +67,7 @@ public class Dwarf_Ctrl : MonoBehaviour
                     landEffect.SetActive(true);
                 }
 
-                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return))
+                if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.KeypadEnter))
                 {
                     moveAmount.y = jumpForce;
                     jumpEffect.SetActive(true);
