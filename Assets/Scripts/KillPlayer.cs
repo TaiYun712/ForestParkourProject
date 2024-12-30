@@ -12,9 +12,10 @@ public class KillPlayer : MonoBehaviour
     {
         Debug.Log("死亡");
      LevelManager.instance.ReSpawn();
-    }else 
+    }else if(other.CompareTag("Player"))
     {
      LevelManager.instance.NoMoreLife();
     }
+
   }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class BrigeTrap : MonoBehaviour
 {
-    public Rigidbody rb;
+    public Rigidbody[]  trapWoodrb;
     
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,7 +18,10 @@ public class BrigeTrap : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("觸發陷阱");
-            rb.isKinematic = false;
+            for(int i = 0; i < trapWoodrb.Length; i++)
+            {
+                trapWoodrb[i].isKinematic = false;
+            }
         }
     }
 }

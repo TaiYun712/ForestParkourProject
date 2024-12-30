@@ -95,6 +95,8 @@ public class LevelManager : MonoBehaviour
         currentLife--;
         UIController.instance.UpdateLifeDisplay(currentLife);
         HatColors(currentLife);
+
+        Debug.Log("重生");
     }
 
     public void NoMoreLife()
@@ -102,6 +104,8 @@ public class LevelManager : MonoBehaviour
         player.gameObject.SetActive(false);
         currentLife--;
         UIController.instance.UpdateLifeDisplay(currentLife);
+
+        Debug.Log("死透");
     }
 
     public void GameOver()
