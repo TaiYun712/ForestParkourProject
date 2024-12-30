@@ -10,6 +10,7 @@ public class KillPlayer : MonoBehaviour
   {
     if (other.CompareTag("Player") && LevelManager.instance.currentLife > 1)
     {
+        Debug.Log("死亡");
      LevelManager.instance.ReSpawn();
     }else 
     {
