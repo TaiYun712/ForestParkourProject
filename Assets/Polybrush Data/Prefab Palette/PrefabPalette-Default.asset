@@ -47,7 +47,7 @@ MonoBehaviour:
     name: Autumn Pine Tree 2
   - gameObject: {fileID: 1717343506590202, guid: 43e172e9261888f4394dcac92f978e52, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 62.978992
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -79,7 +79,7 @@ MonoBehaviour:
     name: Cylinder.050
   - gameObject: {fileID: 1518001982805564, guid: 21e2216697fab4e4ab659676d050e11d, type: 3}
     settings:
-      m_Strength: 58.819336
+      m_Strength: 1
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
