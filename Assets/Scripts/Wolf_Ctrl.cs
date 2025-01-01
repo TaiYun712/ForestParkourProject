@@ -90,13 +90,18 @@ public class Wolf_Ctrl : MonoBehaviour
                 break;
 
             case WolfState.stop:
-
+               
                 break;
         }
 
         if(Vector3.Distance(theDwarf.transform.position,transform.position) < chaseDistance)
         {
             currentState = WolfState.chasing;
+        }
+
+        if (Vector3.Distance(transform.position, patrolPoints[4].position) < 1)
+        {
+            currentState = WolfState.idle;
         }
 
         lookTarget.y = transform.position.y;
@@ -116,8 +121,8 @@ public class Wolf_Ctrl : MonoBehaviour
         {
             currentPatrolPoint++;
             if (currentPatrolPoint >= patrolPoints.Length)
-            {
-                currentPatrolPoint = patrolPoints.Length;
+            {    
+                currentState = WolfState.idle;
             }
         }    
     }
