@@ -6,22 +6,22 @@ using UnityEngine;
 public class BrigeTrap : MonoBehaviour
 {
     public Rigidbody[]  trapWoodrb;
-    
-    
-    void Start()
-    {
-       
-    }
 
+    public AudioSource brokeSound;
+
+    public bool soundPlayed =false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && soundPlayed == false)
         {
-            Debug.Log("觸發陷阱");
+            
             for(int i = 0; i < trapWoodrb.Length; i++)
             {
                 trapWoodrb[i].isKinematic = false;
             }
+
+            brokeSound.Play();
+            soundPlayed = true;
         }
     }
 }
