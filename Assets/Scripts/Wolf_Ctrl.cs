@@ -17,6 +17,8 @@ public class Wolf_Ctrl : MonoBehaviour
 
     public enum WolfState {idle,patrolling,chasing,stop }
     public WolfState currentState;
+    public Animator anim;
+
 
     public float waitTime, waitChance;
     float waitCounter;
@@ -42,6 +44,8 @@ public class Wolf_Ctrl : MonoBehaviour
         switch (currentState)
         {
             case WolfState.idle:
+                anim.SetBool("moveing", false);
+
                 yStore = wolfRB.velocity.y;
                 wolfRB.velocity = new Vector3(0f,yStore,0f);
 
@@ -55,6 +59,8 @@ public class Wolf_Ctrl : MonoBehaviour
                 break;
 
             case WolfState.patrolling:
+                anim.SetBool("moveing",true);
+
                 yStore = wolfRB.velocity.y;
                 moveDirection = patrolPoints[currentPatrolPoint].position - transform.position;
 
@@ -75,6 +81,7 @@ public class Wolf_Ctrl : MonoBehaviour
                 break;
 
             case WolfState.chasing:
+                anim.SetBool("moveing", true);
 
                 lookTarget = theDwarf.transform.position;
 
