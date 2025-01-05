@@ -18,10 +18,10 @@ public class Wolf_Ctrl : MonoBehaviour
     public enum WolfState {showUp,idle,patrolling,chasing}
     public WolfState currentState;
     public Animator anim;
-
+    public GameObject wolfCam;
 
     public float waitTime, waitChance;
-    float waitCounter;
+    public float waitCounter;
 
     public float chaseDistance, chaseSpeed;
 
@@ -37,6 +37,11 @@ public class Wolf_Ctrl : MonoBehaviour
        currentState = WolfState.idle;
 
         waitCounter = waitTime;
+
+        wolfCam.SetActive(false);
+        gameObject.SetActive(false);
+        lookTarget = patrolPoints[0].position;
+
     }
 
     void Update()
@@ -44,7 +49,10 @@ public class Wolf_Ctrl : MonoBehaviour
         switch (currentState)
         {
             case WolfState.showUp:
-
+                Debug.Log("³¥¯T¥X³õ");           
+                wolfCam.SetActive(true);
+                        
+                Invoke("OverShowUp",5f);
                 break;
 
             case WolfState.idle:
@@ -57,7 +65,6 @@ public class Wolf_Ctrl : MonoBehaviour
                 if(waitCounter <= 0)
                 {
                     currentState = WolfState.patrolling;
-
                     NextPatrolPoint();
                 }
                 break;
@@ -103,6 +110,11 @@ public class Wolf_Ctrl : MonoBehaviour
            
         }
 
+        if (WolfActivator.wolfIsShowUp == true)
+        {
+            currentState = WolfState.showUp;
+        }
+
         if(Vector3.Distance(theDwarf.transform.position,transform.position) < chaseDistance)
         {
             currentState = WolfState.chasing;
@@ -112,6 +124,8 @@ public class Wolf_Ctrl : MonoBehaviour
         if (Vector3.Distance(transform.position, patrolPoints[4].position) < 1)
         {
             currentState = WolfState.idle;
+            currentPatrolPoint = 0;
+            waitCounter = 0;
         }
 
         lookTarget.y = transform.position.y;
@@ -122,7 +136,7 @@ public class Wolf_Ctrl : MonoBehaviour
 
     public void NextPatrolPoint()
     {
-        if(Random.Range(0f,100f) < waitChance)
+        if(Random.Range(0f,100f) <= waitChance)
         {
             waitCounter = waitTime;
             currentState = WolfState.idle;
@@ -130,11 +144,18 @@ public class Wolf_Ctrl : MonoBehaviour
         else
         {
             currentPatrolPoint++;
-            if (currentPatrolPoint >= patrolPoints.Length)
-            {    
-                currentState = WolfState.idle;
-            }
+            
         }    
+    }
+
+    public void OverShowUp()
+    {
+        wolfCam.SetActive(false);
+        WolfActivator.wolfIsShowUp = false;
+        LevelManager.instance.isPlaying = true;
+
+        currentState = WolfState.idle;
+        currentPatrolPoint = 0;
     }
 
     private void OnDrawGizmos()

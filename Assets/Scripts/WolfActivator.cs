@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class WolfActivator : MonoBehaviour
 {
-    public GameObject wolfCam;
+    public static bool wolfIsShowUp =false;
+    public GameObject theWolf;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && wolfIsShowUp == false)
         {
             LevelManager.instance.isPlaying = false;
-            wolfCam.SetActive(true);
+            theWolf.gameObject.SetActive(true);
+            wolfIsShowUp=true;
         }
     }
 
