@@ -15,7 +15,7 @@ public class Wolf_Ctrl : MonoBehaviour
 
     Dwarf_Ctrl theDwarf;
 
-    public enum WolfState {idle,patrolling,chasing,stop }
+    public enum WolfState {showUp,idle,patrolling,chasing}
     public WolfState currentState;
     public Animator anim;
 
@@ -43,6 +43,10 @@ public class Wolf_Ctrl : MonoBehaviour
     {
         switch (currentState)
         {
+            case WolfState.showUp:
+
+                break;
+
             case WolfState.idle:
                 anim.SetBool("moveing", false);
 
@@ -96,15 +100,14 @@ public class Wolf_Ctrl : MonoBehaviour
 
                 break;
 
-            case WolfState.stop:
-               
-                break;
+           
         }
 
         if(Vector3.Distance(theDwarf.transform.position,transform.position) < chaseDistance)
         {
             currentState = WolfState.chasing;
         }
+       
 
         if (Vector3.Distance(transform.position, patrolPoints[4].position) < 1)
         {
