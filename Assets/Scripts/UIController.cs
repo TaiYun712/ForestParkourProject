@@ -28,6 +28,10 @@ public class UIController : MonoBehaviour
     public Button startBt, quitBt,backBt;
     public GameObject titleCam;
 
+    public AudioSource titleBGM;
+    public AudioSource gameBGM;
+    public AudioSource buttonSound;
+
     private void Awake()
     {
         if (instance == null)
@@ -47,12 +51,16 @@ public class UIController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             LevelManager.instance.isPlaying =false;
         }
-           
+         
+        titleBGM.Play();
     }
 
     public void StartGame()
     {
-       
+        buttonSound.Play();
+        titleBGM.Stop();
+        gameBGM.Play();
+
         LevelManager.instance.isPlaying = true;
         titleCam.SetActive(false);
 
@@ -66,6 +74,7 @@ public class UIController : MonoBehaviour
     public void CloseGame()
     {
         Debug.Log("Ãö³¬¹CÀ¸");
+        buttonSound.Play();
         Application.Quit();
     }
 

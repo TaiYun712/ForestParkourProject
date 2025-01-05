@@ -24,7 +24,11 @@ public class LevelManager : MonoBehaviour
     public bool isPlaying; //遊戲是否正在進行，在暫停或封面
 
     public int currentCoins;// coinThreshold,currentCrystal;
-    
+    public AudioSource getSound;
+
+    public AudioSource dieSound;
+    public AudioSource failSound;
+
     private void Awake()
     {
         if (instance == null)
@@ -83,6 +87,8 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator ReSpawnCo()
     {
+        dieSound.Play();
+
         player.gameObject.SetActive(false);
         UIController.instance.FadeOut();
         yield return new WaitForSeconds(waitForRespawning);
@@ -95,8 +101,7 @@ public class LevelManager : MonoBehaviour
         currentLife--;
         UIController.instance.UpdateLifeDisplay(currentLife);
         HatColors(currentLife);
-
-        
+      
     }
 
     public void NoMoreLife()
@@ -112,7 +117,8 @@ public class LevelManager : MonoBehaviour
     {
         if(currentLife <= 0)
         {
-            Debug.Log("GameOver!");
+            failSound.Play();
+
             UIController.instance.failScreen.SetActive(true);
             isPlaying = false;
             Cursor.lockState = CursorLockMode.None;
@@ -158,25 +164,12 @@ public class LevelManager : MonoBehaviour
 
     public void GetCoin()
     {
+        getSound.Play();
         currentCoins++;
-
-        /* if (currentCoins >= coinThreshold)
-         {
-             GetCrystal();
-             currentCoins -= coinThreshold;
-        }
-          */
+        
         UIController.instance.coinText.text = currentCoins.ToString();
         
         PlayerPrefs.SetInt("Coins",currentCoins);
     }
-   /*
-        public void GetCrystal()
-        {
-            currentCrystal++;
-            UIController.instance.crystalText.text = currentCrystal.ToString();
-
-            PlayerPrefs.SetInt("Crystals",currentCrystal);
-        }
-    */
+  
 }

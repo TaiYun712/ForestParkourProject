@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599337770a3fe644ba849819ee42bb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupEffect: {fileID: 0}
+  pickupEffect: {fileID: 4702585704822897891, guid: 9c27c7d6731758c4c94c241e80bb94f1, type: 3}
 --- !u!95 &8557662902338101978
 Animator:
   serializedVersion: 5

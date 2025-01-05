@@ -19,6 +19,8 @@ public class Dwarf_Ctrl : MonoBehaviour
     public GameObject jumpEffect, landEffect;
     private bool lastGrounded;
 
+    public AudioSource jumpSound;
+
     void Start()
     {
         cam = FindObjectOfType<CameraController>();
@@ -71,7 +73,7 @@ public class Dwarf_Ctrl : MonoBehaviour
                 {
                     moveAmount.y = jumpForce;
                     jumpEffect.SetActive(true);
-
+                    jumpSound.Play();
                 }
             }
 

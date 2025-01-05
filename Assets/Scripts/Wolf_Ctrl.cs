@@ -49,7 +49,7 @@ public class Wolf_Ctrl : MonoBehaviour
         switch (currentState)
         {
             case WolfState.showUp:
-                Debug.Log("³¥¯T¥X³õ");           
+                       
                 wolfCam.SetActive(true);
                         
                 Invoke("OverShowUp",5f);
