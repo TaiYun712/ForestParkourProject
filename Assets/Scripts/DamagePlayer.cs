@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class DamagePlayer : MonoBehaviour
 {
-    
+
+    public AudioSource hurtSound;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-           // Debug.Log("刺到");
-            PlayerHealthController.instance.DamagePlayer();
+          hurtSound.Play();
+          PlayerHealthController.instance.DamagePlayer();
         }
     }
 }
