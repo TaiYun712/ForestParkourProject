@@ -45,6 +45,8 @@ public class Checkpoint : MonoBehaviour
                 UIController.instance.UpdateLifeDisplay(LevelManager.instance.currentLife);
                 LevelManager.instance.HatColors(LevelManager.instance.currentLife);
                 isAward = true;
+                
+                PlayerHealthController.instance.FillHealth();
          } 
          
       }
