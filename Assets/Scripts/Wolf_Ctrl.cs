@@ -15,7 +15,7 @@ public class Wolf_Ctrl : MonoBehaviour
 
     Dwarf_Ctrl theDwarf;
 
-    public enum WolfState {showUp,idle,patrolling,chasing}
+    public enum WolfState {showUp,idle,patrolling,chasing,attack}
     public WolfState currentState;
     public Animator anim;
     public GameObject wolfCam;
@@ -23,7 +23,7 @@ public class Wolf_Ctrl : MonoBehaviour
     public float waitTime, waitChance;
     public float waitCounter;
 
-    public float chaseDistance, chaseSpeed;
+    public float chaseDistance, chaseSpeed,attackDistance;
 
     void Start()
     {
@@ -113,6 +113,9 @@ public class Wolf_Ctrl : MonoBehaviour
 
                 break;
 
+            case WolfState.attack:
+
+                break;
            
         }
 
@@ -168,6 +171,10 @@ public class Wolf_Ctrl : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.25f);
         Gizmos.DrawSphere(transform.position, chaseDistance);
+
+        Gizmos.color = new Color(0, 0, 1, 0.25f);
+        Gizmos.DrawSphere(transform.position, attackDistance);
+
     }
 
 

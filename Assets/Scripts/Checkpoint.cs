@@ -12,6 +12,8 @@ public class Checkpoint : MonoBehaviour
 
     public int awardLife;
     bool isAward = false;
+
+    public AudioSource chackSound;
    
    private void OnTriggerEnter(Collider other)
    {
@@ -37,6 +39,8 @@ public class Checkpoint : MonoBehaviour
          
          if (!isAward)
          {
+                chackSound.Play();
+
                 LevelManager.instance.currentLife += awardLife;
                 if (LevelManager.instance.currentLife >= LevelManager.instance.maxLife)
                 {

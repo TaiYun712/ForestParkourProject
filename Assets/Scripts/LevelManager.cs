@@ -108,9 +108,7 @@ public class LevelManager : MonoBehaviour
     {
         player.gameObject.SetActive(false);
         currentLife--;
-        UIController.instance.UpdateLifeDisplay(currentLife);
-
-        
+        UIController.instance.UpdateLifeDisplay(currentLife);       
     }
 
     public void GameOver()
