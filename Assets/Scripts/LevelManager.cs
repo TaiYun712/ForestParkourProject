@@ -19,7 +19,6 @@ public class LevelManager : MonoBehaviour
 
     public Material hat;
 
-    
     public float levelTimer;
     public bool isPlaying; //遊戲是否正在進行，在暫停或封面
 
@@ -53,14 +52,20 @@ public class LevelManager : MonoBehaviour
        HatColors(currentLife);
 
         isPlaying = false;
+       
     }
 
     private void Update()
     {
         if (isPlaying)
         {
-            levelTimer += Time.deltaTime;
-            UIController.instance.timeText.text = levelTimer.ToString("0");
+
+            levelTimer -= Time.deltaTime;
+            int min = Mathf.FloorToInt(levelTimer / 60);
+            int sec = Mathf.FloorToInt(levelTimer % 60);
+            UIController.instance.timeText.text = string.Format("{0:00}:{1:00}", min, sec);
+
+            
             GameOver();
         }
         
@@ -113,7 +118,7 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        if(currentLife <= 0)
+        if(currentLife < 0 || levelTimer <= 0)
         {
             failSound.Play();
             failSound_2.Play();
@@ -121,7 +126,7 @@ public class LevelManager : MonoBehaviour
             UIController.instance.failScreen.SetActive(true);
             isPlaying = false;
             Cursor.lockState = CursorLockMode.None;
-
+            levelTimer = 0;
         }
     }
 
