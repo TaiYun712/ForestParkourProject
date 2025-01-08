@@ -27,15 +27,13 @@ public class LevelManager : MonoBehaviour
 
     public AudioSource dieSound;
     public AudioSource failSound,failSound_2;
+    bool playOverSound = false;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-
-            PlayerPrefs.GetInt("Coins");
-            PlayerPrefs.GetInt("Crystal");
 
         }
     }
@@ -52,33 +50,27 @@ public class LevelManager : MonoBehaviour
        HatColors(currentLife);
 
         isPlaying = false;
-       
+        playOverSound = false;
     }
 
     private void Update()
     {
         if (isPlaying)
         {
-
             levelTimer -= Time.deltaTime;
             int min = Mathf.FloorToInt(levelTimer / 60);
             int sec = Mathf.FloorToInt(levelTimer % 60);
             UIController.instance.timeText.text = string.Format("{0:00}:{1:00}", min, sec);
+                   
+        }
 
-            
+        if(currentLife <= 0 || levelTimer <= 0)
+        {
             GameOver();
         }
-        
 
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PlayerPrefs.DeleteAll();
-            Debug.Log("資料已清空");
-        }
-        
-#endif        
+       
+     
     }
 
     public void ReSpawn()
@@ -117,16 +109,21 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GameOver()
+    {       
+        UIController.instance.failScreen.SetActive(true);
+        isPlaying = false;
+        Cursor.lockState = CursorLockMode.None;
+        levelTimer -= 0;
+        GameOverSound();
+    }
+
+    void GameOverSound()
     {
-        if(currentLife < 0 || levelTimer <= 0)
+        if(!playOverSound)
         {
             failSound.Play();
             failSound_2.Play();
-
-            UIController.instance.failScreen.SetActive(true);
-            isPlaying = false;
-            Cursor.lockState = CursorLockMode.None;
-            levelTimer = 0;
+            playOverSound = true;
         }
     }
 
