@@ -42,6 +42,7 @@ public class Wolf_Ctrl : MonoBehaviour
         gameObject.SetActive(false);
         lookTarget = patrolPoints[0].position;
 
+        
     }
 
     void Update()
@@ -49,9 +50,14 @@ public class Wolf_Ctrl : MonoBehaviour
         switch (currentState)
         {
             case WolfState.showUp:
-                       
+                  
                 wolfCam.SetActive(true);
-                        
+
+                anim.SetBool("moveing", false);
+
+                yStore = wolfRB.velocity.y;
+                wolfRB.velocity = new Vector3(0f, yStore, 0f);
+
                 Invoke("OverShowUp",5f);
                 break;
 
