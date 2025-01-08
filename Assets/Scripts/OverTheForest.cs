@@ -17,7 +17,7 @@ public class OverTheForest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && Wolf_Ctrl.isFull ==false)
         {
             safeHint.SetActive(true);
             Invoke("CloseTheHint",3f);

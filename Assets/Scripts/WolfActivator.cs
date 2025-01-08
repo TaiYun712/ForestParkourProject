@@ -8,9 +8,11 @@ public class WolfActivator : MonoBehaviour
     public GameObject theWolf;
     Vector3 wolfShowUpPos;
 
+    public GameObject fullHint;
     private void Start()
     {
         wolfShowUpPos = theWolf.transform.position; 
+        fullHint.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,11 +31,17 @@ public class WolfActivator : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("¯T¹¡¤F");
+               fullHint.SetActive(true);
+                Invoke("CloseTheHint",2f);
             }
         }
        
     }
 
-  
+    void CloseTheHint()
+    {
+        fullHint.SetActive(false);
+    }
+
+
 }
