@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
     public AudioSource getSound;
 
     public AudioSource dieSound;
-    public AudioSource failSound;
+    public AudioSource failSound,failSound_2;
 
     private void Awake()
     {
@@ -116,6 +116,7 @@ public class LevelManager : MonoBehaviour
         if(currentLife <= 0)
         {
             failSound.Play();
+            failSound_2.Play();
 
             UIController.instance.failScreen.SetActive(true);
             isPlaying = false;

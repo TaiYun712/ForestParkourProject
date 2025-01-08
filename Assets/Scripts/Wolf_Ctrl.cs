@@ -25,6 +25,11 @@ public class Wolf_Ctrl : MonoBehaviour
 
     public float chaseDistance, chaseSpeed,attackDistance;
 
+    public AudioSource wolfSound;
+    public int eatCount = 0;
+    public bool hasEaten = false;
+
+    public static bool isFull = false;
     void Start()
     {
         theDwarf = FindObjectOfType< Dwarf_Ctrl>();
@@ -42,7 +47,8 @@ public class Wolf_Ctrl : MonoBehaviour
         gameObject.SetActive(false);
         lookTarget = patrolPoints[0].position;
 
-        
+        eatCount = 0;
+        isFull = false;
     }
 
     void Update()
@@ -54,6 +60,8 @@ public class Wolf_Ctrl : MonoBehaviour
                 wolfCam.SetActive(true);
 
                 anim.SetBool("moveing", false);
+
+                hasEaten = false;
 
                 yStore = wolfRB.velocity.y;
                 wolfRB.velocity = new Vector3(0f, yStore, 0f);
@@ -114,7 +122,10 @@ public class Wolf_Ctrl : MonoBehaviour
                 break;
 
             case WolfState.attack:
+                anim.SetTrigger("attack");              
+                hasEaten = true;
 
+                Invoke("EatPlayer", 0.5f);
                 break;
            
         }
@@ -128,7 +139,13 @@ public class Wolf_Ctrl : MonoBehaviour
         {
             currentState = WolfState.chasing;
         }
-       
+
+        if (Vector3.Distance(theDwarf.transform.position, transform.position) < attackDistance && hasEaten == false)
+        {
+            currentState = WolfState.attack;
+            
+        }
+        
 
         if (Vector3.Distance(transform.position, patrolPoints[4].position) < 1)
         {
@@ -140,6 +157,15 @@ public class Wolf_Ctrl : MonoBehaviour
         lookTarget.y = transform.position.y;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookTarget - transform.position), turnSpeed * Time.deltaTime);
 
+        if(eatCount >= 3)
+        {
+            isFull = true;
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            isFull = false;
+        }
         
     }
 
@@ -165,6 +191,23 @@ public class Wolf_Ctrl : MonoBehaviour
 
         currentState = WolfState.idle;
         currentPatrolPoint = 0;
+    }
+
+    void EatPlayer()
+    {
+        eatCount++;
+        Debug.Log("¦Y¤F"+eatCount);
+
+        if (LevelManager.instance.currentLife > 1)
+        {
+            LevelManager.instance.ReSpawn();
+            wolfSound.Play();
+        }
+        else
+        {
+            LevelManager.instance.NoMoreLife();
+        }
+        
     }
 
     private void OnDrawGizmos()

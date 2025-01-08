@@ -11,8 +11,7 @@ public class OverTheForest : MonoBehaviour
     void Start()
     {
         safeHint.SetActive(false);
-        coll = GetComponent<Collider>();
-        coll.isTrigger = true;
+       
     }
 
 
@@ -33,6 +32,8 @@ public class OverTheForest : MonoBehaviour
 
         }
     }
+
+    
 
     void CloseTheHint()
     {

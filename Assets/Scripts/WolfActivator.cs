@@ -15,13 +15,24 @@ public class WolfActivator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && wolfIsShowUp == false)
+        if (Wolf_Ctrl.isFull ==false)
         {
-            LevelManager.instance.isPlaying = false;
-            theWolf.transform.position = wolfShowUpPos;
-            theWolf.gameObject.SetActive(true);
-            wolfIsShowUp=true;
+            if (other.CompareTag("Player") && wolfIsShowUp == false)
+            {
+                LevelManager.instance.isPlaying = false;
+                theWolf.transform.position = wolfShowUpPos;
+                theWolf.gameObject.SetActive(true);
+                wolfIsShowUp = true;
+            }
         }
+        else
+        {
+            if (other.CompareTag("Player"))
+            {
+                Debug.Log("¯T¹¡¤F");
+            }
+        }
+       
     }
 
   

@@ -60,12 +60,15 @@ public class PlayerHealthController : MonoBehaviour
             invincCount = invincLength;
             
             currentHealth--;
-            if (currentHealth <= 0)
+            if (currentHealth <= 0 && LevelManager.instance.currentLife > 1)
             {
-                LevelManager.instance.ReSpawn();
-                
+                LevelManager.instance.ReSpawn();          
             }
-            
+            else if(currentHealth <= 0)
+            {
+                LevelManager.instance.NoMoreLife();
+            }
+
             UIController.instance.UpdateHealthDisplay(currentHealth);
         }    
     }
