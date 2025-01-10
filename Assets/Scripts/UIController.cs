@@ -81,6 +81,7 @@ public class UIController : MonoBehaviour
     public void BackToTitle()
     {
         SceneManager.LoadScene("GamePlay");
+
     }
 
     void Update()
