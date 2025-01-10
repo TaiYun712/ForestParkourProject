@@ -16,6 +16,8 @@ public class PlayerHealthController : MonoBehaviour
     public GameObject[] modelDisplay;
     public float flashCount, flashTime;
 
+    public AudioSource hurtSound;
+
     private void Awake()
     {
         instance = this;
@@ -55,6 +57,8 @@ public class PlayerHealthController : MonoBehaviour
 
     public void DamagePlayer()
     {
+        hurtSound.Play();
+
         if (invincCount <= 0)
         {
             invincCount = invincLength;

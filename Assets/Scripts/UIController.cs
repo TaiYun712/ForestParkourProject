@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour
     public Image currentLifeImage; //目前玩家
     public Sprite[] lifeImage; //小矮人圖片
 
-    public GameObject titleScreen,gamePlayScreen,failScreen;
+    public GameObject titleScreen,gamePlayScreen,failScreen,winScreen;
     public Button startBt, quitBt,backBt;
     public GameObject titleCam;
 
@@ -45,7 +45,7 @@ public class UIController : MonoBehaviour
         titleScreen.SetActive(true);
         gamePlayScreen.SetActive(false);
         failScreen.SetActive(false);
-
+        winScreen.SetActive(false);
         if (titleScreen.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;

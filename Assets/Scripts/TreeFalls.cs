@@ -11,6 +11,9 @@ public class TreeFalls : MonoBehaviour
     public bool treeIsFall;
     public bool hasFall = false;
 
+    public AudioSource fallingSound;
+    public AudioSource downSound;
+
     private void Start()
     {
        anim = tree.GetComponent<Animator>();
@@ -26,10 +29,12 @@ public class TreeFalls : MonoBehaviour
             {
                 Debug.Log("¾ð­Ë¤F");
                 anim.SetTrigger("falling");
+                downSound.Play();
             }
             else
             {
                 Debug.Log("¾ð¨S­Ë");
+                fallingSound.Play();
 
             }
         }  
