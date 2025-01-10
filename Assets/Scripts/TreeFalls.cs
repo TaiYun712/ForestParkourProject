@@ -27,13 +27,13 @@ public class TreeFalls : MonoBehaviour
 
             if (treeIsFall)
             {
-                Debug.Log("¾ð­Ë¤F");
+                
                 anim.SetTrigger("falling");
                 downSound.Play();
             }
             else
             {
-                Debug.Log("¾ð¨S­Ë");
+                
                 fallingSound.Play();
 
             }

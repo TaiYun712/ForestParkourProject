@@ -25,8 +25,16 @@ public class TreeHurt : MonoBehaviour
         }
         else
         {
-            LevelManager.instance.ReSpawn();
-          
+            if(LevelManager.instance.currentLife > 1)
+            {
+                LevelManager.instance.ReSpawn();
+
+            }
+            else
+            {
+                LevelManager.instance.NoMoreLife();
+            }
+
         }
     }
 }
